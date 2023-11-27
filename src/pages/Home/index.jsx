@@ -30,18 +30,11 @@ const LeftCol = styled.div`
 `
 
 const StyledTitle = styled.h2`
-padding-bottom: 30px;
-max-width: 280px;
-line-height: 1.2; /* Ajustez la hauteur de ligne selon vos préférences */
-font-size: 2 rem; /* Ajustez la taille de la police selon vos besoins */
-font-weight: bold; /* Vous pouvez ajuster la graisse de la police si nécessaire */
-text-align: center; /* Centrez le texte, ajustez selon vos besoins */
-text-transform: uppercase; /* Convertit le texte en majuscules, ajustez selon vos préférences */
+  padding-bottom: 30px;
+  max-width: 280px;
+  line-height: 50px;
   color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
 `
-
-
-
 
 const Illustration = styled.img`
   flex: 1;

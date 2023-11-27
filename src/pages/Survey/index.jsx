@@ -1,4 +1,3 @@
-
 import { useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -12,60 +11,28 @@ const SurveyContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
-  margin: 150px auto;
-  background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 8px;
-`;
+`
 
 const QuestionTitle = styled.h2`
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: ${colors.primary};
-  position: relative;
-
-  &:before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: ${colors.primary};
-  }
-
-  &:hover {
-    color: #452cc2; /* Change la couleur de la police au survol */
-  }
-`;
+  text-decoration: underline;
+  text-decoration-color: ${colors.primary};
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+`
 
 const QuestionContent = styled.span`
   margin: 30px;
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
 `
 
 const LinkWrapper = styled.div`
   padding-top: 30px;
-
   & a {
-    color: black;
-    text-decoration: none;
-    padding: 10px;
-    background-color: #5843E4;
-    color: #ffffff;
-    border-radius: 5px;
+    color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+  }
+  & a:first-of-type {
     margin-right: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
-
-  & a:hover {
-    background-color: #452cc2; /* Nouvelle couleur de survol ajustée */
-    transform: scale(1.05); /* Ajout d'une légère animation de zoom au survol */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ajout d'une légère ombre au survol */
-  }
-`;
+`
 
 const ReplyBox = styled.button`
   border: none;
@@ -74,7 +41,9 @@ const ReplyBox = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${colors.backgroundLight};
+  background-color: ${({ theme }) =>
+    theme === 'light' ? colors.backgroundLight : colors.backgroundDark};
+  color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
   border-radius: 30px;
   cursor: pointer;
   box-shadow: ${(props) =>
@@ -92,18 +61,14 @@ const ReplyWrapper = styled.div`
   flex-direction: row;
 `
 
-
-
-
 function Survey() {
   const { questionNumber } = useParams()
   const questionNumberInt = parseInt(questionNumber)
   const prevQuestionNumber = questionNumberInt === 1 ? 1 : questionNumberInt - 1
   const nextQuestionNumber = questionNumberInt + 1
-  const { answers, saveAnswers } = useContext(SurveyContext)
-
-
   const { theme } = useTheme()
+
+  const { saveAnswers, answers } = useContext(SurveyContext)
 
   function saveReply(answer) {
     saveAnswers({ [questionNumber]: answer })
@@ -144,17 +109,17 @@ function Survey() {
   const surveyData = data?.surveyData
 
   if (error) {
-    return <span>Oups il y a eu un problème</span>
+    return <span>Il y a un problème</span>
   }
 
   return (
     <SurveyContainer>
       <QuestionTitle theme={theme}>Question {questionNumber}</QuestionTitle>
       {isLoading ? (
-        <Loader />
+        <Loader data-testid="loader" />
       ) : (
-        <QuestionContent theme={theme}>
-          {surveyData[questionNumber]}
+        <QuestionContent theme={theme} data-testid="question-content">
+          {surveyData && surveyData[questionNumber]}
         </QuestionContent>
       )}
       <ReplyWrapper>
@@ -186,7 +151,6 @@ function Survey() {
 }
 
 export default Survey
-
 
 
 

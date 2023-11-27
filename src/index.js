@@ -12,6 +12,7 @@ import Freelances from './pages/Freelances'
 import GlobalStyle from './utils/style/GlobalStyle'
 import { SurveyProvider, ThemeProvider } from './utils/context'
 import Footer from './components/Footer'
+import ProfileContainer from './components/ProfileContainer'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -43,6 +44,11 @@ root.render(
                                           path="/Freelances"
                                           element={<Freelances />}
                                     />
+                                    
+                                    <Route
+                                          path="/profile/:id"
+                                          element={<ProfileContainer />}
+                                    />
                                     <Route path="*" element={<Error />} />
                               </Routes>
                               <Footer />
@@ -50,5 +56,5 @@ root.render(
                   </ThemeProvider>
             </BrowserRouter>
       </React.StrictMode>,
-        document.getElementById('root')
+      document.getElementById('root'),
 )
